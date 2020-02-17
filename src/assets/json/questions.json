@@ -1,0 +1,30 @@
+{
+  "data": [{
+    "label": "Religion",
+    "formGroup": "",
+    "fields": [{
+      "type": "select",
+      "label": "Religious Ideology",
+      "placeholder": "Ex. Agnostic",
+      "options": ["Catholic", "Hindu", "Muslim", "Atheist", "Agnostic", "Other"]
+    }]
+  }, {
+    "label": "Religion",
+    "formGroup": "",
+    "fields": [{
+      "type": "select",
+      "label": "Religious Ideology",
+      "placeholder": "Ex. Agnostic",
+      "options": ["Catholic", "Hindu", "Muslim", "Atheist", "Agnostic", "Other"]
+    }]
+  }, {
+    "label": "Religion",
+    "formGroup": "",
+    "fields": [{
+      "type": "select",
+      "label": "Religious Ideology",
+      "placeholder": "Ex. Agnostic",
+      "options": ["Catholic", "Hindu", "Muslim", "Atheist", "Agnostic", "Other"]
+    }]
+  }]
+}
