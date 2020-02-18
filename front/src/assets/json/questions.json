@@ -1,7 +1,6 @@
 {
   "data": [{
     "label": "Religion",
-    "formGroup": "step1",
     "fields": [{
       "type": "slider",
       "label": "How religious are you?",
@@ -10,6 +9,61 @@
       "type": "slider",
       "label": "How religious are you okay with your partner being?",
       "options": ["Not at All", "Very"]
+    }]
+  }, {
+    "label": "Education",
+    "fields": [{
+      "type": "slider",
+      "label": "What is your highest level of education completed?",
+      "options": ["High School", "College", "University", "Masters", "PhD"]
+    }, {
+      "type": "slider",
+      "label": "How educated should your partner be?",
+      "options": ["High School", "College", "Bachelors", "Masters", "PhD"]
+    }]
+  }, {
+    "label": "Smoking",
+    "fields": [{
+      "type": "slider",
+      "label": "How much do you smoke?",
+      "options": ["Not at All", "Every Day"]
+    }, {
+      "type": "slider",
+      "label": "Show much should your partner smoke?",
+      "options": ["Not at All", "Every Day"]
+    }]
+  }, {
+    "label": "Drinking",
+    "fields": [{
+      "type": "slider",
+      "label": "How much do you drink?",
+      "options": ["Not at All", "Every Day"]
+    }, {
+      "type": "slider",
+      "label": "Show much should your partner drink?",
+      "options": ["Not at All", "Every Day"]
+    }]
+  }, {
+    "label": "Activity",
+    "fields": [{
+      "type": "slider",
+      "label": "How active are you?",
+      "options": ["Not at All", "Very"]
+    }, {
+      "type": "slider",
+      "label": "How active are you okay with your partner being?",
+      "options": ["Not at All", "Very"]
+    }]
+  }, {
+    "label": "Social",
+    "fields": [{
+      "type": "slider",
+      "label": "How social are you?",
+      "options": ["Introverted", "Extroverted"]
+    }, {
+      "type": "slider",
+      "label": "How social are you okay with your partner being?",
+      "options": ["Introverted", "Extroverted"]
     }]
   }]
 }

@@ -1,18 +1,25 @@
-<mat-horizontal-stepper linear="true" #stepper>
+<mat-horizontal-stepper #stepper="matHorizontalStepper">
   <mat-step *ngFor="let q of questions; let i = index;">
-    <form>
+    <div>
       <ng-template matStepLabel>{{ q.label }}</ng-template>
       <div *ngFor="let f of q.fields; let j = index;" class="text">
         <h2> {{ f.label }} </h2>
         <div class="options">
           <p *ngFor="let o of f.options"> {{ o }} </p>
         </div>
-        <mat-slider min="0" max="4" tickInterval="auto" (input)="answer($event, i, j)"></mat-slider>
+        <mat-slider min="0" max="4" tickInterval="auto" (input)="answer($event, q.label, j)"></mat-slider>
       </div>
       <div>
-        <button mat-stroked-button matStepperPrevious color="accent">Back</button>
-        <button mat-flat-button matStepperNext color="primary">Next</button>
+        <button mat-stroked-button (click)="stepper.previous()" color="accent">Back</button>
+        <button mat-flat-button (click)="stepper.next()" color="primary">Next</button>
       </div>
-    </form>
+    </div>
+  </mat-step>
+  <mat-step>
+    <div class="text">
+      <ng-template matStepLabel>Done</ng-template>
+      <h2> Are you satisfied with your profile submission? </h2>
+      <button mat-flat-button color="primary">Submit</button>
+    </div>
   </mat-step>
 </mat-horizontal-stepper>

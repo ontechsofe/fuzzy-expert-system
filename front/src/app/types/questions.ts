@@ -1,6 +1,5 @@
 export interface Questions {
   label: string;
-  formGroup: string;
   fields: field[]
 }
 

@@ -11,13 +11,13 @@ import {Observable} from "rxjs";
 export class QuestionsComponent implements OnInit {
 
   questions: Questions[];
-  answers: number[][];
+  answers: any;
 
   constructor(private http: HttpClient) {
-    this.answers = [];
+    this.answers = {};
     this.getJsonQuestions().subscribe(data => {
       this.questions = data.data;
-      this.questions.forEach(q => this.answers.push([0, 0]) );
+      this.questions.forEach(q => this.answers[q.label] = [0, 0]);
     });
   }
 
@@ -28,7 +28,7 @@ export class QuestionsComponent implements OnInit {
     return this.http.get('assets/json/questions.json');
   }
 
-  answer(event: any, questionId: number, fieldId: number): void {
+  answer(event: any, questionId: string, fieldId: number): void {
     this.answers[questionId][fieldId] = event.value;
   }
 
