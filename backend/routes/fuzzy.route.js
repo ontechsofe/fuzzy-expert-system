@@ -18,7 +18,7 @@ fuzzyRoute.route('compatability-check').get((req, res) => {
 // return : value corresponding to compatability of current JWT user against passed user
 function checkUserCompatability(user) {
     // Should pull passed user's acceptance criteria list
-    // Check current JWT user answers against passed user's acceptance criteria
+    // Check current JWT user answers against passed user's acceptance criteria3
 
 }
 
