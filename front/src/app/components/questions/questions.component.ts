@@ -24,8 +24,8 @@ export class QuestionsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  getJsonQuestions(): Observable<any> {
-    return this.http.get('assets/json/questions.json');
+  getJsonQuestions(): Observable<{data: Questions[]}> {
+    return this.http.get<{data: Questions[]}>('assets/json/questions.json');
   }
 
   answer(event: any, questionId: string, fieldId: number): void {
