@@ -5,8 +5,8 @@ var bodyParser = require('body-parser')
 const port = process.env.PORT || 8080;
 
 
-// const fuzzyRoute = require("./routes/fuzzy.route.js")
-
+const fuzzyRoute = require("./routes/fuzzy.route.js")
+const userRoute = require("./routes/user.route.js")
 const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
