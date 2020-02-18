@@ -1,6 +1,6 @@
 const express = require('express')
 const fuzzyRoute = express.Router()
-
+const pg = require('pg')
 // Compatability Check
 // Main endpoint: Should be the main endpoint needed for this particular section as it should reference the functions within this module
 /* Return values:
