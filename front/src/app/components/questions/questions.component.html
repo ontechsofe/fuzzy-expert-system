@@ -1,4 +1,4 @@
-<mat-vertical-stepper linear="true" #stepper>
+<mat-horizontal-stepper linear="true" #stepper>
   <mat-step *ngFor="let q of questions">
     <form>
       <ng-template matStepLabel>{{ q.label }}</ng-template>
@@ -16,4 +16,4 @@
       </div>
     </form>
   </mat-step>
-</mat-vertical-stepper>
+</mat-horizontal-stepper>

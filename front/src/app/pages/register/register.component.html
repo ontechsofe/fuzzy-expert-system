@@ -23,6 +23,12 @@
         </label>
       </mat-form-field>
       <mat-form-field appearance="fill">
+        <mat-label>Age</mat-label>
+        <label>
+          <input matInput type="number" placeholder="Ex. 21" min="18">
+        </label>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
         <mat-label>Gender</mat-label>
         <mat-select>
           <mat-option *ngFor="let gender of genders" [value]="gender">
