@@ -11,14 +11,7 @@ export class RegisterComponent implements OnInit {
   ethnicities: string[];
 
   constructor() {
-    this.genders = ['male', 'female'];
-    this.ethnicities = [
-      'Caucasian',
-      'Asian',
-      'Mixed',
-      'African',
-      'Other'
-    ];
+    this.genders = ['male', 'female', 'other'];
   }
 
   ngOnInit(): void {

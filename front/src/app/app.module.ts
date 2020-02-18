@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from "./material/material.module";
+import { MaterialAngularModule } from "./material/material-angular.module";
 import { RegisterComponent } from './pages/register/register.component';
 import { QuestionsComponent } from './components/questions/questions.component';
 import {HttpClientModule} from "@angular/common/http";
@@ -22,7 +22,7 @@ import {HttpClientModule} from "@angular/common/http";
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialAngularModule
   ],
   providers: [],
   bootstrap: [AppComponent]

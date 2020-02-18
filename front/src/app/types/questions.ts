@@ -7,6 +7,5 @@ export interface Questions {
 interface field {
   type: string;
   label: string;
-  placeholder: string;
   options: string[];
 }

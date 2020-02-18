@@ -2,5 +2,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 50vh;
+}
+
+.mat-slider-horizontal {
+  width: 500px;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.text {
+  color: white;
 }

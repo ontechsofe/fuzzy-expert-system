@@ -1,15 +1,14 @@
 <mat-horizontal-stepper linear="true" #stepper>
-  <mat-step *ngFor="let q of questions">
+  <mat-step *ngFor="let q of questions; let i = index;">
     <form>
       <ng-template matStepLabel>{{ q.label }}</ng-template>
-      <mat-form-field *ngFor="let f of q.fields" appearance="fill">
-        <mat-label>{{ f.label }}</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let option of f.options" [value]="option">
-            {{ option }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <div *ngFor="let f of q.fields; let j = index;" class="text">
+        <h2> {{ f.label }} </h2>
+        <div class="options">
+          <p *ngFor="let o of f.options"> {{ o }} </p>
+        </div>
+        <mat-slider min="0" max="4" tickInterval="auto" (input)="answer($event, i, j)"></mat-slider>
+      </div>
       <div>
         <button mat-stroked-button matStepperPrevious color="accent">Back</button>
         <button mat-flat-button matStepperNext color="primary">Next</button>
