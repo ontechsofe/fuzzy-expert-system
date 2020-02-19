@@ -58,7 +58,7 @@ userRoute.route('/login').post(async (req,res) => {
         if (result.rowCount == 1){
             const user = result.rows[0];
             const payload = {
-                userID: user.userID,
+                userId: user.userId,
                 name: user.fullname,
                 username: user.username,
                 age: user.age,
@@ -93,7 +93,7 @@ userRoute.route('/login').post(async (req,res) => {
 */
 userRoute.route('/complete').post(async (req,res) => {
     try{
-        let userID = req.body.userID
+        let userId = req.body.userId
         let religion1 = req.body.answers.Religion[0]
         let religion2 = req.body.answers.Religion[1]
         let education1 = req.body.answers.Education[0]
@@ -110,7 +110,7 @@ userRoute.route('/complete').post(async (req,res) => {
         let acceptibility_criteria = religion2 + "," + education2 + "," + smoking2 + "," + drinking2 + "," + activity2 + "," + social2
         const client = await pool.connect()
         let sql = `UPDATE users SET complete = $1, user_responses = $2, acceptibility_criteria = $3 WHERE user_id = $4`
-        let values = [true, user_responses, acceptibility_criteria, userID]
+        let values = [true, user_responses, acceptibility_criteria, userId]
         const result = await client.query(sql, values)
         res.json({
             success: true
@@ -123,17 +123,17 @@ userRoute.route('/complete').post(async (req,res) => {
     }
 })
 /*
-    Sent: userID
+    Sent: userId
 
     Return: True or False:
 
 */
 userRoute.route('/check').post(async (req,res) =>{
     try{
-        let userID = req.body.userID
+        let userId = req.body.userId
         const client = await pool.connect()
         let sql = `SELECT * FROM users WHERE user_id = $1`
-        let values = [userID]
+        let values = [userId]
         const result = await client.query(sql, values)
         let accCompletion = result.rows[0].complete
         if (accCompletion == true){
