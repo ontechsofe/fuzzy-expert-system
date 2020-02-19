@@ -18,9 +18,8 @@ export class AuthService {
   private static getUserId(): number | null {
     let token = localStorage.getItem('token');
     if (token) {
-      let jwt = localStorage.getItem('token');
-      console.log(jwt_decode(jwt));
-      return jwt_decode(jwt);
+      let jwt = jwt_decode(token);
+      return jwt.userId;
     }
     return null;
   }
