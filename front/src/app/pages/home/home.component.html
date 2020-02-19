@@ -2,9 +2,10 @@
   <mat-card-content>
     <div class="justify-between">
       <mat-card-title> {{ user.name }} </mat-card-title>
-      <button mat-stroked-button color="accent"> VIEW </button>
+      <button mat-stroked-button color="accent"></button>
     </div>
   </mat-card-content>
 </mat-card>
 
+<h1>These are the other users and their matches.</h1>
 <app-compatibility *ngFor="let u of users;" [user]="u"></app-compatibility>

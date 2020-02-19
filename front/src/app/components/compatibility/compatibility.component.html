@@ -3,11 +3,11 @@
     <div class="justify-between">
       <mat-card-title>{{ user.name }}</mat-card-title>
       <div class="right-side">
+        <button mat-stroked-button color="accent"> </button>
         <div class="compatibility">
-          <p>They Match You: {{ user.compatibilityWithUser | percent }}</p>
-          <p>You Match Them: {{ user.compatibilityWithThem | percent }}</p>
+          <p>They Match You: {{ user.compatibilityWithThem | percent }}</p>
+          <p>You Match Them: {{ user.compatibilityWithUser | percent }}</p>
         </div>
-        <button mat-stroked-button color="accent"> VIEW </button>
       </div>
     </div>
   </mat-card-content>
