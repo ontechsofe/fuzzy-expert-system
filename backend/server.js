@@ -1,6 +1,7 @@
 const express = require('express')
 var path = require('path')
 var bodyParser = require('body-parser')
+const cors = require('cors')
 
 const port = process.env.PORT || 8080;
 
@@ -15,6 +16,7 @@ app.use(bodyParser.urlencoded({
 
 app.use('/api/fuzzy-route', fuzzyRoute)
 app.use('/api/user', userRoute)
+app.use(cors());
 
 /* For Launch:
 app.use(express.static(path.join(__dirname, '../dist/personal-website/')))
