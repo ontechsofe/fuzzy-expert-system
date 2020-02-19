@@ -36,11 +36,19 @@ export class AuthService {
     return this.http.post<{success: boolean}>(url, body);
   }
 
-  checkComplete() {
+  checkComplete(userId: number): Observable<{data: any, success: boolean}> {
     let url = this.baseURL + '/check';
     let body = {
+      userId: userId
+    };
+    return this.http.post<{data: any, success: boolean}>(url, body);
+  }
 
-    }
+  completeProfile(userId: number) {
+    let url = this.baseURL + '/complete';
+    let body = {
+      userId: userId
+    };
     return this.http.post<{success: boolean}>(url, body);
   }
 }

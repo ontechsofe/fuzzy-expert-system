@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Questions } from "../../types/questions";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-questions',
@@ -13,7 +14,7 @@ export class QuestionsComponent implements OnInit {
   questions: Questions[];
   answers: any;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private profile: AuthService) {
     this.answers = {};
     this.getJsonQuestions().subscribe(data => {
       this.questions = data.data;
@@ -32,5 +33,9 @@ export class QuestionsComponent implements OnInit {
     this.answers[questionId][fieldId] = event.value;
   }
 
+  submit() {
+    this.profile.completeProfile().subscribe(data => {
 
+    });
+  }
 }
