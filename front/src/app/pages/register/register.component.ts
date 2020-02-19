@@ -12,7 +12,7 @@ export class RegisterComponent implements OnInit {
   genders: string[];
 
   constructor(private auth: AuthService, private router: Router) {
-    this.genders = ['male', 'female', 'other'];
+    this.genders = ['male', 'female'];
   }
 
   ngOnInit(): void {

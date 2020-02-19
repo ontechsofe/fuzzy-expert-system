@@ -12,8 +12,8 @@ export class HomeComponent implements OnInit {
   users: {
     userId: any;
     name: string;
-    userCompatibility: number;
-    theirCompatibility: number;
+    compatibilityWithUser: number;
+    compatibilityWithThem: number;
   }[];
 
   constructor() {
@@ -21,8 +21,8 @@ export class HomeComponent implements OnInit {
     this.users = [{
       userId: 5,
       name: 'hobo',
-      userCompatibility: 0.98,
-      theirCompatibility: 0.92
+      compatibilityWithUser: 0.98,
+      compatibilityWithThem: 0.92
     }]
 
   }

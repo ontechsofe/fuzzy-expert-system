@@ -4,6 +4,7 @@ import {LoginComponent} from "./pages/login/login.component";
 import {RegisterComponent} from "./pages/register/register.component";
 import {QuestionsComponent} from "./components/questions/questions.component";
 import {HomeComponent} from "./pages/home/home.component";
+import {SafetyGuard} from "./guards/safety.guard";
 
 
 const routes: Routes = [
@@ -26,7 +27,8 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    // canActivate: [SafetyGuard]
   }
 ];
 

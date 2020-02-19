@@ -10,8 +10,8 @@ export class CompatibilityComponent implements OnInit {
   @Input() user: {
     userId: any;
     name: string;
-    userCompatibility: number;
-    theirCompatibility: number;
+    compatibilityWithUser: number;
+    compatibilityWithThem: number;
   };
 
 

@@ -1,5 +1,6 @@
 const express = require('express')
 const fuzzyRoute = express.Router()
+const env = require('dotenv/config');
 const {
     Pool
 } = require('pg')

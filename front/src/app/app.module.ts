@@ -11,6 +11,7 @@ import { QuestionsComponent } from './components/questions/questions.component';
 import {HttpClientModule} from "@angular/common/http";
 import { HomeComponent } from './pages/home/home.component';
 import { CompatibilityComponent } from './components/compatibility/compatibility.component';
+import {SafetyGuard} from "./guards/safety.guard";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { CompatibilityComponent } from './components/compatibility/compatibility
     HttpClientModule,
     MaterialAngularModule
   ],
-  providers: [],
+  providers: [SafetyGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
