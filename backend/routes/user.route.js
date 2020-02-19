@@ -94,18 +94,18 @@ userRoute.route('/login').post(async (req,res) => {
 userRoute.route('/complete').post(async (req,res) => {
     try{
         let userID = req.body.userID
-        let religion1 = req.body.data.Religion[0]
-        let religion2 = req.body.data.Religion[1]
-        let education1 = req.body.data.Education[0]
-        let education2 = req.body.data.Education[1]
-        let smoking1 = req.body.data.Smoking[0]
-        let smoking2 = req.body.data.Smoking[1]
-        let drinking1 = req.body.data.Drinking[0]
-        let drinking2 = req.body.data.Drinking[1]
-        let activity1 = req.body.data.Activity[0]
-        let activity2 = req.body.data.Activity[1]
-        let social1 = req.body.data.Social[0]
-        let social2 = req.body.data.Social[1]
+        let religion1 = req.body.answers.Religion[0]
+        let religion2 = req.body.answers.Religion[1]
+        let education1 = req.body.answers.Education[0]
+        let education2 = req.body.answers.Education[1]
+        let smoking1 = req.body.answers.Smoking[0]
+        let smoking2 = req.body.answers.Smoking[1]
+        let drinking1 = req.body.answers.Drinking[0]
+        let drinking2 = req.body.answers.Drinking[1]
+        let activity1 = req.body.answers.Activity[0]
+        let activity2 = req.body.answers.Activity[1]
+        let social1 = req.body.answers.Social[0]
+        let social2 = req.body.answers.Social[1]
         let user_responses = religion1 + "," + education1 + "," + smoking1 + "," + drinking1 + "," + activity1 + "," + social1
         let acceptibility_criteria = religion2 + "," + education2 + "," + smoking2 + "," + drinking2 + "," + activity2 + "," + social2
         const client = await pool.connect()
@@ -145,7 +145,9 @@ userRoute.route('/check').post(async (req,res) =>{
             })
         } else {
             res.json({
-                complete: false,
+                data: {
+                complete: false
+                },
                 success: true
             })
         }
