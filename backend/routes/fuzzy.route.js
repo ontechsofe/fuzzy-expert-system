@@ -1,6 +1,5 @@
 const express = require('express')
 const fuzzyRoute = express.Router()
-const jwt = require('jsonwebtoken')
 const {
     Pool
 } = require('pg')
@@ -10,8 +9,6 @@ const pool = new Pool({
     ssl: true
 })
 
-const connectionString = process.env.MATCHMAKER_DATABASE_URL;
-
 // Compatability Check
 // Main endpoint: Should be the main endpoint needed for this particular section as it should reference the functions within this module
 /* Return values:
@@ -20,20 +17,24 @@ const connectionString = process.env.MATCHMAKER_DATABASE_URL;
     - compatabilityWithThem: float => checkTheirCompatability
     - compatabilityWithUser: float => checkUserCompatability
 */
-fuzzyRoute.route('compatability-check').get((req, res) => {
+fuzzyRoute.route('/compatability-check').get((req, res) => {
+    console.log("called");
     // Get all users from DB in a list format excluding current JWT user
     // Loop over the users evaluating both checkUserCompatability and checkTheirCompatability
     let preferredGender = req.body.gender
     let minAge = req.body.minAge
     let maxAge = req.body.maxAge
     let userId = req.body.userId
-
+    
     let usersCompatability = []
 
     let potentialMatches = getAcceptableUsers(userId, preferredGender, minAge, maxAge)
     let jwtUser = getUser(userId)
+    
+    console.log(potentialMatches)
     if (potentialMatches != -1 && jwtUser != -1) {
-        potentialMatches.forEach(user => {
+        for (var i = 0; i < potentialMatches.length; i++) {
+            let user = potentialMatches[i]
             let compat = new Object()
 
             compat.id = user.user_id
@@ -42,7 +43,7 @@ fuzzyRoute.route('compatability-check').get((req, res) => {
             compat.compatabilityWithThem = checkTheirCompatability(jwtUser, user)
 
             usersCompatability.push(compat)
-        })
+        }
 
         res.json({
             data: usersCompatability,
@@ -54,20 +55,20 @@ fuzzyRoute.route('compatability-check').get((req, res) => {
             success: false
         })
     }
-
 })
 
 // function getAcceptableUsers(preferredGender, minAge, maxAge) {}
 // return: list of correpsonding users to loop over and check compatability with based on Gender, minAge, and maxAge
-function getAcceptableUsers(userId, preferredGender, minAge, maxAge) {
-    const text = 'SELECT * FROM users WHERE complete == true AND user_id != $1 AND gender == $2 AND age >= $3 AND age <= $4'
+async function getAcceptableUsers(userId, preferredGender, minAge, maxAge) {
+    // TEST : REPLACE WITH ONE BELOW WHEN DONE
+    const text = 'SELECT * FROM users WHERE complete = false AND user_id != $1 AND gender = $2 AND age >= $3 AND age <= $4'
+    //const text = 'SELECT * FROM users WHERE complete = true AND user_id != $1 AND gender = $2 AND age >= $3 AND age <= $4'
     const values = [userId, preferredGender, minAge, maxAge]
     try {
         let pgClient = await pool.connect()
 
         let users = await pgClient.query(text, values)
         pgClient.release()
-
         return users
     } catch (err) {
         console.log(err.message)
@@ -75,15 +76,14 @@ function getAcceptableUsers(userId, preferredGender, minAge, maxAge) {
     }
 }
 
-function getUser(userId) {
-    const text = 'SELECT * FROM users WHERE user_id == $1'
+async function getUser(userId) {
+    const text = 'SELECT * FROM users WHERE user_id = $1'
     try {
         let pgClient = await pool.connect()
 
         let user = await pgClient.query(text, [userId])
         pgClient.release()
-
-        return user
+        return user.rows[0]
     } catch (err) {
         console.log(err.message)
         return -1

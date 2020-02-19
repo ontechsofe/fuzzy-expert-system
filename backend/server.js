@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({
     extended: false
 }))
 
-app.use('/api/fuzzy_route', fuzzyRoute)
+app.use('/api/fuzzy-route', fuzzyRoute)
 app.use('/api/user', userRoute)
 
 /* For Launch:
