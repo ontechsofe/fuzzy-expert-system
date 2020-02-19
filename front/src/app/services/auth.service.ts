@@ -8,19 +8,25 @@ import sha256 from "sha256"
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  baseURL: string;
+
+  constructor(private http: HttpClient) {
+    this.baseURL = 'http://localhost:8080';
+  }
 
   login(username: string, password: string): Observable<{success: boolean, data: {jwt: string}}> {
-    let url = '';
+    let url = this.baseURL + '/api/user/login';
     let body = {
       username: username,
       password: sha256(password)
     };
+    console.log(body);
+
     return this.http.post<{success: boolean, data: {jwt: string}}>(url, body);
   }
 
   register(username: string, password: string, name: string, age: number, gender: string): Observable<{success: boolean}> {
-    let url = '';
+    let url = this.baseURL + '/api/user/create-user';
     let body = {
       username: username,
       password: sha256(password),
