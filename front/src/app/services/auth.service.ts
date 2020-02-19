@@ -11,29 +11,36 @@ export class AuthService {
   baseURL: string;
 
   constructor(private http: HttpClient) {
-    this.baseURL = 'http://localhost:8080';
+    this.baseURL = 'http://localhost:8080/api/user';
   }
 
-  login(username: string, password: string): Observable<{success: boolean, data: {jwt: string}}> {
-    let url = this.baseURL + '/api/user/login';
+  login(username: string, password: string): Observable<{success: boolean, data: {accessToken: string}}> {
+    let url = this.baseURL + '/login';
     let body = {
       username: username,
       password: sha256(password)
     };
-    console.log(body);
 
-    return this.http.post<{success: boolean, data: {jwt: string}}>(url, body);
+    return this.http.post<{success: boolean, data: {accessToken: string}}>(url, body);
   }
 
   register(username: string, password: string, name: string, age: number, gender: string): Observable<{success: boolean}> {
-    let url = this.baseURL + '/api/user/create-user';
+    let url = this.baseURL + '/create-user';
     let body = {
       username: username,
       password: sha256(password),
-      name: name,
+      fullname: name,
       age: age,
       gender: gender
     };
+    return this.http.post<{success: boolean}>(url, body);
+  }
+
+  checkComplete() {
+    let url = this.baseURL + '/check';
+    let body = {
+
+    }
     return this.http.post<{success: boolean}>(url, body);
   }
 }

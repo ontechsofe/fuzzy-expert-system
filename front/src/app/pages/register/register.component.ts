@@ -19,9 +19,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register(name: string, username: string, password: string, age: string, gender: string): void {
-    console.log({name, username, password, age, gender});
     this.auth.register(username, password, name, parseInt(age), gender).subscribe(data => {
-      console.log(data);
       if (data.success) {
       //  REDIRECT TO LOGIN IF SUCCESS
         console.log("User Registered");

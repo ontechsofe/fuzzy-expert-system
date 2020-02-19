@@ -1,1 +1,10 @@
+<mat-card class="main">
+  <mat-card-content>
+    <div class="justify-between">
+      <mat-card-title> {{ user.name }} </mat-card-title>
+      <button mat-stroked-button color="accent"> VIEW </button>
+    </div>
+  </mat-card-content>
+</mat-card>
+
 <app-compatibility *ngFor="let u of users;" [user]="u"></app-compatibility>

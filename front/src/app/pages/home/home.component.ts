@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  user: any;
   users: {
     userId: any;
     name: string;
@@ -15,6 +17,7 @@ export class HomeComponent implements OnInit {
   }[];
 
   constructor() {
+    this.user = this.unpackJWT();
     this.users = [{
       userId: 5,
       name: 'hobo',
@@ -25,6 +28,12 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  unpackJWT() {
+    let jwt = localStorage.getItem('token');
+    console.log(jwt_decode(jwt));
+    return jwt_decode(jwt);
   }
 
 }

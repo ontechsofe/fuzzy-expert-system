@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
     this.auth.login(username, password).subscribe(data => {
       if (data.success) {
         console.log('User Logged In');
-        localStorage.setItem('token', data.data.jwt);
+        localStorage.setItem('token', data.data.accessToken);
         this.router.navigate(['/', 'home']).then(nav => {
             console.log(nav); // true if navigation is successful
           }, err => {
