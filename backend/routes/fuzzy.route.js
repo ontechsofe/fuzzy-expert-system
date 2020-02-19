@@ -18,7 +18,7 @@ const pool = new Pool({
     - compatibilityWithThem: float => checkTheirCompatibility
     - compatibilityWithUser: float => checkUserCompatibility
 */
-fuzzyRoute.route('/compatibility-check').get((req, res) => {
+fuzzyRoute.route('/compatibility-check').post((req, res) => {
     // Get all users from DB in a list format excluding current JWT user
     // Loop over the users evaluating both checkUserCompatibility and checkTheirCompatibility
     let preferredGender = req.body.gender

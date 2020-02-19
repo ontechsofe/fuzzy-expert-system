@@ -5,6 +5,7 @@
     <button mat-stroked-button color="accent" [routerLink]="['/home']">Home</button>
     <button mat-stroked-button color="accent" [routerLink]="['/login']">Login</button>
     <button mat-stroked-button color="accent" [routerLink]="['/questions']">Questions</button>
+    <button mat-stroked-button color="warn" (click)="logout()">Logout</button>
   </mat-toolbar-row>
 </mat-toolbar>
 <router-outlet></router-outlet>

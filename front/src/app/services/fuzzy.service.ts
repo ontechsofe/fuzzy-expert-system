@@ -23,18 +23,15 @@ export class FuzzyService {
     return null;
   }
 
-  getCompatibility(minAge: string, maxAge: string, gender): Observable<{success: boolean}> {
-    minAge = 0;
-    maxAge = 100;
-    gender = 'male';
-    let url = this.baseURL + '/compatability-check';
+  getCompatibility(minAge: string, maxAge: string, gender): Observable<{data: any, success: boolean}> {
+    let url = this.baseURL + '/compatibility-check';
     let body = {
       minAge: minAge,
       maxAge: maxAge,
       userId: FuzzyService.getUserId(),
       gender: gender
     };
-    return this.http.post<{success: boolean}>(url, body);
+    return this.http.post<{data: any, success: boolean}>(url, body);
   }
 
 }

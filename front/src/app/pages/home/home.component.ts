@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as jwt_decode from 'jwt-decode';
+import {FuzzyService} from "../../services/fuzzy.service";
+import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -16,15 +19,21 @@ export class HomeComponent implements OnInit {
     compatibilityWithThem: number;
   }[];
 
-  constructor() {
+  constructor(private fuzzy: FuzzyService, private auth: AuthService, private router: Router) {
+    if (!this.auth.loggedIn()) {
+      this.router.navigate(['/', 'login']);
+      alert('You are not logged in.');
+      return;
+    }
     this.user = this.unpackJWT();
-    this.users = [{
-      userId: 5,
-      name: 'hobo',
-      compatibilityWithUser: 0.98,
-      compatibilityWithThem: 0.92
-    }]
-
+    this.fuzzy.getCompatibility("0", "100", 'male').subscribe(data => {
+      if (data.success) {
+        console.log("Works");
+        this.users = data.data;
+      } else {
+        console.log("Not Works!");
+      }
+    });
   }
 
   ngOnInit(): void {

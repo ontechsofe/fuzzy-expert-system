@@ -3,6 +3,7 @@ import { Questions } from "../../types/questions";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-questions',
@@ -14,7 +15,21 @@ export class QuestionsComponent implements OnInit {
   questions: Questions[];
   answers: any;
 
-  constructor(private http: HttpClient, private profile: AuthService) {
+  constructor(private http: HttpClient, private profile: AuthService, private router: Router) {
+    if (!this.profile.loggedIn()) {
+      this.router.navigate(['/', 'login']);
+      alert('You are not logged in.');
+      return;
+    }
+    this.profile.checkComplete().subscribe(data => {
+      if (data.success) {
+        if (!data.data.complete) {
+          this.router.navigate(['/', 'questions']);
+        }
+      } else {
+        alert('Something went wrong.')
+      }
+    });
     this.answers = {};
     this.getJsonQuestions().subscribe(data => {
       this.questions = data.data;

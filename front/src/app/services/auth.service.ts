@@ -62,4 +62,12 @@ export class AuthService {
     };
     return this.http.post<{success: boolean}>(url, body);
   }
+
+  loggedIn(): boolean {
+    let token = localStorage.getItem('token');
+    if (token) {
+      return true;
+    }
+    return false;
+  }
 }

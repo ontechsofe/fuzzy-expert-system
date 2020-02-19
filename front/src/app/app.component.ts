@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'fuzzy-expert-system';
+  constructor(private router: Router) {
+  }
+  logout(): void {
+    localStorage.clear();
+    alert('You are now logged out');
+    this.router.navigate(['/', 'login']);
+  }
 }
