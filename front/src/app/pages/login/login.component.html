@@ -7,18 +7,18 @@
       <mat-form-field appearance="fill">
         <mat-label>Username</mat-label>
         <label>
-          <input matInput placeholder="Ex. joshsmith123">
+          <input matInput placeholder="Ex. joshsmith123" #username>
         </label>
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Password</mat-label>
         <label>
-          <input matInput placeholder="Ex. code4life">
+          <input matInput placeholder="Ex. code4life" #password>
         </label>
       </mat-form-field>
     </form>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-flat-button color="primary"> Login </button>
+    <button mat-flat-button color="primary" (click)="login(username.value, password.value)"> Login </button>
   </mat-card-actions>
 </mat-card>

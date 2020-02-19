@@ -7,40 +7,38 @@
       <mat-form-field appearance="fill">
         <mat-label>Full Name</mat-label>
         <label>
-          <input matInput placeholder="Ex. Joshua Smith">
+          <input matInput placeholder="Ex. Joshua Smith" #name>
         </label>
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Username</mat-label>
         <label>
-          <input matInput placeholder="Ex. joshsmith123">
+          <input matInput placeholder="Ex. joshsmith123" #username>
         </label>
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Password</mat-label>
         <label>
-          <input matInput placeholder="Ex. code4life">
+          <input matInput type="password" placeholder="Ex. code4life" #password>
+        </label>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Age</mat-label>
+        <label>
+          <input matInput type="number" placeholder="Ex. 21" min="18" #age>
         </label>
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Gender</mat-label>
-        <mat-select>
+        <mat-select #gender>
           <mat-option *ngFor="let gender of genders" [value]="gender">
             {{ gender }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="fill">
-        <mat-label>Ethnicity</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let ethnicity of ethnicities" [value]="ethnicity">
-            {{ ethnicity }}
           </mat-option>
         </mat-select>
       </mat-form-field>
     </form>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-flat-button color="primary"> Register </button>
+    <button mat-flat-button color="primary" (click)="register(name.value, username.value, password.value, age.value, gender.value)"> Register </button>
   </mat-card-actions>
 </mat-card>

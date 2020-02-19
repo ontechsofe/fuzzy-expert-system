@@ -1,0 +1,26 @@
+.mat-card {
+  width: 50vw;
+  margin: 20px;
+}
+
+.justify-end {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.compatibility {
+  text-align: right;
+  vertical-align: middle;
+}
+
+.right-side {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+button {
+  margin: 30px;
+}
