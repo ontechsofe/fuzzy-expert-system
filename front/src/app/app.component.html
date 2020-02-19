@@ -2,9 +2,10 @@
   <mat-toolbar-row>
     <span>Fuzzy Match Maker</span>
     <span class="spacer"></span>
-    <button mat-stroked-button color="accent" [routerLink]="['/home']">Home</button>
+    <button mat-flat-button color="accent" [routerLink]="['/home']">Home</button>
+    <button mat-flat-button color="accent" [routerLink]="['/questions']">Questions</button>
+    <button mat-stroked-button color="accent" [routerLink]="['/register']">Register</button>
     <button mat-stroked-button color="accent" [routerLink]="['/login']">Login</button>
-    <button mat-stroked-button color="accent" [routerLink]="['/questions']">Questions</button>
     <button mat-stroked-button color="warn" (click)="logout()">Logout</button>
   </mat-toolbar-row>
 </mat-toolbar>

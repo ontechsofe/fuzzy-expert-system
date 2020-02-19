@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
     compatibilityWithUser: number;
     compatibilityWithThem: number;
   }[];
+  complete: boolean = true;
 
   constructor(private fuzzy: FuzzyService, private auth: AuthService, private router: Router) {
     if (!this.auth.loggedIn()) {
@@ -25,15 +26,32 @@ export class HomeComponent implements OnInit {
       alert('You are not logged in.');
       return;
     }
-    this.user = this.unpackJWT();
-    this.fuzzy.getCompatibility("0", "100", 'male').subscribe(data => {
+    this.auth.checkComplete().subscribe(data => {
       if (data.success) {
-        console.log("Works");
-        this.users = data.data;
+        if (data.data.complete) {
+          console.log('You are an answerer of questions.');
+        } else {
+          alert('You haven\'t answered the questions yet.');
+          this.complete = false;
+          this.router.navigate(['/', 'questions']);
+        }
       } else {
-        console.log("Not Works!");
+        alert('Something went wrong.');
+        this.complete = false;
+        this.router.navigate(['/', 'login']);
       }
     });
+    if (this.complete) {
+      this.user = this.unpackJWT();
+      this.fuzzy.getCompatibility("0", "100", 'male').subscribe(data => {
+        if (data.success) {
+          console.log("Works");
+          this.users = data.data;
+        } else {
+          console.log("Not Works!");
+        }
+      });
+    }
   }
 
   ngOnInit(): void {
