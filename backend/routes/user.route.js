@@ -58,7 +58,7 @@ userRoute.route('/login').post(async (req,res) => {
         if (result.rowCount == 1){
             const user = result.rows[0];
             const payload = {
-                userId: user.userId,
+                userId: user.user_id,
                 name: user.fullname,
                 username: user.username,
                 age: user.age,
