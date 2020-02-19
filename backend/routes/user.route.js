@@ -58,7 +58,7 @@ userRoute.route('/login').post(async (req,res) => {
         if (result.rowCount == 1){
             const user = result.rows[0];
             const payload = {
-                user_id: user.user_id,
+                userId: user.userId,
                 name: user.fullname,
                 username: user.username,
                 age: user.age,
@@ -93,24 +93,24 @@ userRoute.route('/login').post(async (req,res) => {
 */
 userRoute.route('/complete').post(async (req,res) => {
     try{
-        let user_id = req.body.user_id
-        let religion1 = req.body.religion[0]
-        let religion2 = req.body.religion[1]
-        let education1 = req.body.education[0]
-        let education2 = req.body.education[1]
-        let smoking1 = req.body.smoking[0]
-        let smoking2 = req.body.smoking[1]
-        let drinking1 = req.body.drinking[0]
-        let drinking2 = req.body.drinking[1]
-        let activity1 = req.body.activity[0]
-        let activity2 = req.body.activity[1]
-        let social1 = req.body.social[0]
-        let social2 = req.body.social[1]
+        let userId = req.body.userId
+        let religion1 = req.body.answers.Religion[0]
+        let religion2 = req.body.answers.Religion[1]
+        let education1 = req.body.answers.Education[0]
+        let education2 = req.body.answers.Education[1]
+        let smoking1 = req.body.answers.Smoking[0]
+        let smoking2 = req.body.answers.Smoking[1]
+        let drinking1 = req.body.answers.Drinking[0]
+        let drinking2 = req.body.answers.Drinking[1]
+        let activity1 = req.body.answers.Activity[0]
+        let activity2 = req.body.answers.Activity[1]
+        let social1 = req.body.answers.Social[0]
+        let social2 = req.body.answers.Social[1]
         let user_responses = religion1 + "," + education1 + "," + smoking1 + "," + drinking1 + "," + activity1 + "," + social1
         let acceptibility_criteria = religion2 + "," + education2 + "," + smoking2 + "," + drinking2 + "," + activity2 + "," + social2
         const client = await pool.connect()
         let sql = `UPDATE users SET complete = $1, user_responses = $2, acceptibility_criteria = $3 WHERE user_id = $4`
-        let values = [true, user_responses, acceptibility_criteria, user_id]
+        let values = [true, user_responses, acceptibility_criteria, userId]
         const result = await client.query(sql, values)
         res.json({
             success: true
@@ -123,17 +123,17 @@ userRoute.route('/complete').post(async (req,res) => {
     }
 })
 /*
-    Sent: user_id
+    Sent: userId
 
     Return: True or False:
 
 */
 userRoute.route('/check').post(async (req,res) =>{
     try{
-        let user_id = req.body.user_id
+        let userId = req.body.userId
         const client = await pool.connect()
         let sql = `SELECT * FROM users WHERE user_id = $1`
-        let values = [user_id]
+        let values = [userId]
         const result = await client.query(sql, values)
         let accCompletion = result.rows[0].complete
         if (accCompletion == true){
@@ -145,7 +145,9 @@ userRoute.route('/check').post(async (req,res) =>{
             })
         } else {
             res.json({
-                complete: false,
+                data: {
+                complete: false
+                },
                 success: true
             })
         }
