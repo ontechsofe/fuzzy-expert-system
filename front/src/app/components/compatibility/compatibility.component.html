@@ -1,0 +1,14 @@
+<mat-card>
+  <mat-card-content>
+    <div class="justify-end">
+      <mat-card-title>{{ user.name }}</mat-card-title>
+      <div class="right-side">
+        <div class="compatibility">
+          <p>They Match You: {{ user.userCompatibility }}</p>
+          <p>You Match Them: {{ user.theirCompatibility }}</p>
+        </div>
+        <button mat-stroked-button color="accent"> VIEW </button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

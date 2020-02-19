@@ -7,6 +7,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatSelectModule} from "@angular/material/select";
 import {MatOptionModule} from "@angular/material/core";
 import {MatStepperModule} from "@angular/material/stepper";
+import {MatSliderModule} from "@angular/material/slider";
 
 @NgModule({
   declarations: [],
@@ -18,7 +19,8 @@ import {MatStepperModule} from "@angular/material/stepper";
     MatButtonModule,
     MatSelectModule,
     MatOptionModule,
-    MatStepperModule
+    MatStepperModule,
+    MatSliderModule
   ]
 })
-export class MaterialModule { }
+export class MaterialAngularModule { }
