@@ -14,9 +14,11 @@ app.use(bodyParser.urlencoded({
     extended: false
 }))
 
+app.use(cors());
+
 app.use('/api/fuzzy-route', fuzzyRoute)
 app.use('/api/user', userRoute)
-app.use(cors());
+
 
 /* For Launch:
 app.use(express.static(path.join(__dirname, '../dist/personal-website/')))
