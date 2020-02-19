@@ -158,8 +158,6 @@ userRoute.route('/check').post(async (req,res) =>{
         })
     }
 })
-//CHECK IF COMPLETE ENDPOINT
-
 // Get User Answers
 // Should return the user's answers to the questions they filled out when completing their profile
 /* 
@@ -170,6 +168,43 @@ userRoute.route('/check').post(async (req,res) =>{
             Acceptance: int
         }, ...]: 
 */
+userRoute.route('/get-answers').get(async (req,res) => {
+    try{
+        let userId = req.body.userId
+        const client = await pool.connect()
+        let sql = `SELECT user_responses, acceptability_criteria FROM users WHERE user_id = $1`
+        let values = [userId]
+        const result = await client.query(sql, values)
+        let user_responses = result.rows[0].user_responses
+        let acceptability_criteria = result.rows[0].acceptability_criteria
+        if (user_responses != null && acceptability_criteria != null){
+            let response_list = user_responses.split(',').map(Number)
+            let acceptability_list = acceptability_criteria.split(',').map(Number)
+            let answers_list = []
+            for(i = 0; i < response_list.length; i++){
+                let ans = new Object()
+                ans.Question = i
+                ans.Response = response_list[i]
+                ans.Acceptance = acceptability_list[i]
+                answers_list.push(ans)
+            }
+            res.json({
+                data: answers_list,
+                success: true
+            })
+        } else {
+            res.json({
+                success: true
+            })
+        }
+    } catch(err){
+        console.log(err.message)
+        res.json({
+            success: false
+        })
+    }
+})
+
 
 
 
