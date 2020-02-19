@@ -107,10 +107,10 @@ userRoute.route('/complete').post(async (req,res) => {
         let social1 = req.body.answers.Social[0]
         let social2 = req.body.answers.Social[1]
         let user_responses = religion1 + "," + education1 + "," + smoking1 + "," + drinking1 + "," + activity1 + "," + social1
-        let acceptibility_criteria = religion2 + "," + education2 + "," + smoking2 + "," + drinking2 + "," + activity2 + "," + social2
+        let acceptability_criteria = religion2 + "," + education2 + "," + smoking2 + "," + drinking2 + "," + activity2 + "," + social2
         const client = await pool.connect()
-        let sql = `UPDATE users SET complete = $1, user_responses = $2, acceptibility_criteria = $3 WHERE user_id = $4`
-        let values = [true, user_responses, acceptibility_criteria, userId]
+        let sql = `UPDATE users SET complete = $1, user_responses = $2, acceptability_criteria = $3 WHERE user_id = $4`
+        let values = [true, user_responses, acceptability_criteria, userId]
         const result = await client.query(sql, values)
         res.json({
             success: true
