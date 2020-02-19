@@ -1,7 +1,14 @@
 const express = require('express')
 const fuzzyRoute = express.Router()
-const pg = require('pg')
 const jwt = require('jsonwebtoken')
+const {
+    Pool
+} = require('pg')
+
+const pool = new Pool({
+    connectionString: process.env.MATCHMAKER_DATABASE_URL,
+    ssl: true
+})
 
 const connectionString = process.env.MATCHMAKER_DATABASE_URL;
 
@@ -49,10 +56,10 @@ function getAcceptableUsers(preferredGender, minAge, maxAge) {
     const text = 'SELECT * FROM users WHERE complete == true AND user_id != $1 AND gender == $2 AND age >= $3 AND age <= $4'
     const values = [JWT.user_id, preferredGender, minAge, maxAge]
     try {
-        let pgClient = new pg.Client(connectionString)
-        pgClient.connect()
+        let pgClient = await pool.connect()
+
         let users = await pgClient.query(text, values)
-        pgClient.end()
+        pgClient.release()
 
         return users
     } catch (err) {
@@ -66,10 +73,10 @@ function getUser(user_id) {
     /*
     const text = 'SELECT * FROM users WHERE user_id == $1'
     try {
-        let pgClient = new pg.Client(connectionString)
-        pgClient.connect()
+        let pgClient = await pool.connect()
+
         let user = await pgClient.query(text, [user_id])
-        pgClient.end()
+        pgClient.release()
 
         return user
     } catch (err) {
