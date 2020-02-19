@@ -1,25 +1,37 @@
 const express = require('express')
 const userRoute = express.Router()
-const pg = require('pg')
 const jwt = require('jsonwebtoken');
-
-const connectionString = process.env.MATCHMAKER_DATABASE_URL;
+const base64 = require('base64url');
+const crypto = require('crypto');
+const fs = require('fs');
+const env = require('dotenv/config');
+const {
+    Pool
+} = require('pg');
+const pool = new Pool({
+    connectionString: process.env.MATCHMAKER_DATABASE_URL,
+    ssl: true
+})
 // New User
 // Generate the New User into the Database
 userRoute.route('/create-user').post(async (req,res) => {
     try{
+        //User Information from request body
         let username = req.body.username;
         let password = req.body.password;
         let fullname = req.body.fullname;
         let age = req.body.age;
         let gender = req.body.gender;
         
-        let pgClient = new pg.Client(connectionString);
-        pgClient.connect();
+        //DB Connection
+        const client = await pool.connect()
+        //DB Querying
         let sql = `INSERT INTO users (username, password, fullname, age, gender) VALUES ($1, $2, $3, $4, $5)`;
         let values = [username, password, fullname, age, gender];
-        const result = await pgClient.query(sql, values);
-        pgClient.end();
+        const result = await client.query(sql, values);
+        //Close DB Connection
+        client.release()
+        //JSON response
         res.json({
             success: true
         });
@@ -34,19 +46,63 @@ userRoute.route('/create-user').post(async (req,res) => {
 // Login
 // Log the User into the System
 userRoute.route('/login').post(async (req,res) => {
-    let username = req.body.username;
-    let password = req.body.password;
+    try{   
+        let username = req.body.username;
+        let password = req.body.password;
 
-    let pgClient = new pg.Client(connectionString);
+        const client = await pool.connect()
+        let sql = `SELECT * FROM users WHERE username = $1 AND password = $2`;
+        let values = [username, password];
+        const result = await client.query(sql, values);
+        client.release();
+        if (result.rowCount == 1){
+            const user = result.rows[0];
+            const payload = {
+                name: user.fullname,
+                username: user.username,
+                age: user.age,
+                gender: user.gender
+            }
+            const accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '6h' })
+            res.json({
+                data: {
+                    accessToken: accessToken
+                },
+                sucess: true
+            });
+        } else {
+            console.log("Invalid Login Credentials")
+            res.json({
+                success: false
+            })
+        }
+        
+    } catch(err){
+        console.log(err.message)
+        res.json({  
+            success: false
+        })
+    }
 })
-/*
-    Return:
-        - JWT (With Expiry): String
-        - Success: Boolean
-*/
 
-
-
+userRoute.route('/complete').post(async (req,res) => {
+    try{
+        let user_id = req.body.user_id
+        let user_responses = req.body.user_responses
+        let acceptibility_criteria = req.body.acceptibility_criteria
+        const client = await pool.connect()
+        let sql = `UPDATE users SET complete = $1, user_responses = $2, acceptibility_criteria = $3 WHERE user_id = $4`
+        let values = [true, user_responses, acceptibility_criteria, user_id]
+        res.json({
+            success: true
+        })
+    } catch(err){
+        console.log(err.message)
+        res.json({
+            success: false
+        })
+    }
+})
 // Complete Profile
 // Complete the Profile Questionnaire and Log Responses into the System
 /*
@@ -54,6 +110,11 @@ userRoute.route('/login').post(async (req,res) => {
         - Success: Boolean
 */
 
+//CHECK IF COMPLETE ENDPOINT
+/*
+    Sent: user_id
+
+    Return: True or False:
 
 
 // Get User Answers
