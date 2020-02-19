@@ -34,8 +34,14 @@ export class QuestionsComponent implements OnInit {
   }
 
   submit() {
-    this.profile.completeProfile().subscribe(data => {
-
+    this.profile.completeProfile(this.answers).subscribe(data => {
+      if (data.success) {
+      //  USER PROFILE ANSWERS SUCCESSFUL
+        console.log("Answers Submitted");
+      } else {
+      //  NOT ENTERED
+        console.log("Answers Not Submitted");
+      }
     });
   }
 }
