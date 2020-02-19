@@ -68,7 +68,7 @@ userRoute.route('/login').post(async (req,res) => {
                 data: {
                     accessToken: accessToken
                 },
-                sucess: true
+                success: true
             });
         } else {
             console.log("Invalid Login Credentials")
@@ -84,7 +84,12 @@ userRoute.route('/login').post(async (req,res) => {
         })
     }
 })
-
+// Complete Profile
+// Complete the Profile Questionnaire and Log Responses into the System
+/*
+    Return:
+        - Success: Boolean
+*/
 userRoute.route('/complete').post(async (req,res) => {
     try{
         let user_id = req.body.user_id
@@ -93,6 +98,7 @@ userRoute.route('/complete').post(async (req,res) => {
         const client = await pool.connect()
         let sql = `UPDATE users SET complete = $1, user_responses = $2, acceptibility_criteria = $3 WHERE user_id = $4`
         let values = [true, user_responses, acceptibility_criteria, user_id]
+        const result = await client.query(sql, values)
         res.json({
             success: true
         })
@@ -103,19 +109,40 @@ userRoute.route('/complete').post(async (req,res) => {
         })
     }
 })
-// Complete Profile
-// Complete the Profile Questionnaire and Log Responses into the System
-/*
-    Return:
-        - Success: Boolean
-*/
-
-//CHECK IF COMPLETE ENDPOINT
 /*
     Sent: user_id
 
     Return: True or False:
 
+*/
+userRoute.route('/check').post(async (req,res) =>{
+    try{
+        let user_id = req.body.user_id
+        const client = await pool.connect()
+        let sql = `SELECT * FROM users WHERE user_id = $1`
+        let values = [user_id]
+        const result = await client.query(sql, values)
+        let accCompletion = result.rows[0].complete
+        if (accCompletion == true){
+            res.json({
+                data: {
+                    complete: accCompletion
+                },
+                success: true
+            })
+        } else {
+            res.json({
+                success: false
+            })
+        }
+    } catch(err){
+        console.log(err.message)
+        res.json({
+            success: false
+        })
+    }
+})
+//CHECK IF COMPLETE ENDPOINT
 
 // Get User Answers
 // Should return the user's answers to the questions they filled out when completing their profile
